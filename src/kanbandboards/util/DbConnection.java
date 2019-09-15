@@ -22,7 +22,7 @@ public class DbConnection {
         } catch (ClassNotFoundException e) {
             System.out.println("MySQL Driver not found.");
         }
-        String url = "jdbc:mysql://localhost:3306/test";
+        String url = "jdbc:mysql://localhost:3306/kanband_boards";
         String user = "root";
         String password = "";
 
