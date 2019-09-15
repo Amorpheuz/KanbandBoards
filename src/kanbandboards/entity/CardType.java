@@ -5,6 +5,7 @@
  */
 package kanbandboards.entity;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -15,6 +16,8 @@ public class CardType {
     private int cardTypeId;
     private String cardTypeName;
     private String cardTypeColor;
+    
+    private ArrayList<Card> cards;
 
     public CardType() {
     }
@@ -25,6 +28,13 @@ public class CardType {
         this.cardTypeColor = cardTypeColor;
     }
 
+    public CardType(int cardTypeId, String cardTypeName, String cardTypeColor, ArrayList<Card> cards) {
+        this.cardTypeId = cardTypeId;
+        this.cardTypeName = cardTypeName;
+        this.cardTypeColor = cardTypeColor;
+        this.cards = cards;
+    }
+    
     public int getCardTypeId() {
         return cardTypeId;
     }
