@@ -45,7 +45,7 @@ public class Board extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Name", "Description", "Type"
+                "To-Do Task", "Doing Task", "Done Task"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -58,16 +58,19 @@ public class Board extends javax.swing.JFrame {
         });
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-        }
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton1.setText("Add Task");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton2.setText("Remove Task");
+        jButton2.setText("Edit or Update the Task");
         jButton2.setActionCommand("Edit Task");
+        jButton2.setName(""); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -76,6 +79,11 @@ public class Board extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton3.setText("Exit");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setText("Task Board ");
@@ -84,15 +92,15 @@ public class Board extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1)
-                        .addGap(147, 147, 147)
+                        .addGap(121, 121, 121)
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(275, 275, 275)
@@ -123,7 +131,21 @@ public class Board extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        Edit_Form e1 = new Edit_Form();
+        e1.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+          Main_Form m1 =new Main_Form();
+        m1.setVisible(true);
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        Add_Task a1 = new Add_Task();
+        a1.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments

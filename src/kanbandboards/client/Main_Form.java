@@ -34,6 +34,7 @@ public class Main_Form extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,7 +75,12 @@ public class Main_Form extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu5);
 
-        jMenu2.setText("Registration ");
+        jMenu6.setText("Edit Task");
+        jMenu6.setActionCommand("Edit Task |");
+        jMenu6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jMenuBar1.add(jMenu6);
+
+        jMenu2.setText("Registration |");
         jMenu2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -177,6 +183,7 @@ public class Main_Form extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

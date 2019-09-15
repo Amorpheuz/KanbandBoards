@@ -58,7 +58,12 @@ public class Login_Form extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton2.setText("Forgot Password");
+        jButton2.setText("Exit ");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -125,6 +130,12 @@ public class Login_Form extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+          Main_Form m1 =new Main_Form();
+        m1.setVisible(true);
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments

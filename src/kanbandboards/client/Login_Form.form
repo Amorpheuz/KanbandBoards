@@ -143,8 +143,11 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Forgot Password"/>
+            <Property name="text" type="java.lang.String" value="Exit "/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton2MouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
