@@ -28,7 +28,8 @@ public class Card {
     public Card() {
     }
 
-    public Card(int userId, int colId, int cTypeId, String cardTitle, LocalDateTime cardCreated) {
+    public Card(int cardId,int userId, int colId, int cTypeId, String cardTitle, LocalDateTime cardCreated) {
+        this.cardId = cardId;
         this.userId = userId;
         this.colId = colId;
         this.cTypeId = cTypeId;
@@ -36,7 +37,8 @@ public class Card {
         this.cardCreated = cardCreated;
     }
 
-    public Card(int userId, int colId, int cTypeId, String cardTitle, LocalDateTime cardCreated, CardType cardType, User user, BoardColumn boardColumn) {
+    public Card(int cardId, int userId, int colId, int cTypeId, String cardTitle, LocalDateTime cardCreated, CardType cardType, User user, BoardColumn boardColumn) {
+        this.cardId = cardId;
         this.userId = userId;
         this.colId = colId;
         this.cTypeId = cTypeId;

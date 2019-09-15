@@ -11,8 +11,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import kanbandboards.dao.UserDao;
+import kanbandboards.entity.Card;
 import kanbandboards.entity.User;
 import kanbandboards.entity.UserTypes;
 import kanbandboards.util.DbConnection;
@@ -74,7 +76,15 @@ public class UserDaoImpl implements UserDao {
             ResultSet usrs = preparedStatement.executeQuery();
             ArrayList<User> users = new ArrayList<>();
             while (usrs.next()){
-                users.add(new User(usrs.getInt(1),usrs.getString(2),UserTypes.values()[usrs.getInt(3)],usrs.getString(4)));
+                String subQuery = "Select * from cards where user_id = ?";
+                PreparedStatement preparedStatementSub = connection.prepareStatement(query);
+                preparedStatementSub.setInt(1,usrs.getInt(1));
+                ResultSet crds = preparedStatementSub.executeQuery();
+                ArrayList<Card> cards = new ArrayList<>();
+                while(crds.next()){
+                    cards.add(new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getObject(4, LocalDateTime.class)));
+                }
+                users.add(new User(usrs.getInt(1),usrs.getString(2),UserTypes.values()[usrs.getInt(3)],usrs.getString(4),cards));
             }
             if (users.size() > 0){
                 return users;
@@ -101,7 +111,15 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setInt(1,userId);
             ResultSet usrs = preparedStatement.executeQuery();
             if (usrs.next()){
-                User user = new User(usrs.getInt(1),usrs.getString(2),UserTypes.values()[usrs.getInt(3)],usrs.getString(4));
+                String subQuery = "Select * from cards where user_id = ?";
+                PreparedStatement preparedStatementSub = connection.prepareStatement(query);
+                preparedStatementSub.setInt(1,usrs.getInt(1));
+                ResultSet crds = preparedStatementSub.executeQuery();
+                ArrayList<Card> cards = new ArrayList<>();
+                while(crds.next()){
+                    cards.add(new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getObject(4, LocalDateTime.class)));
+                }
+                User user = new User(usrs.getInt(1),usrs.getString(2),UserTypes.values()[usrs.getInt(3)],usrs.getString(4),cards);
                 return user;
             }
         } catch (SQLException e) {
