@@ -5,6 +5,14 @@
  */
 package kanbandboards.client;
 
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import kanbandboards.entity.BoardColumn;
+import kanbandboards.entity.Card;
+import kanbandboards.impl.BoardColumnDaoImpl;
+import kanbandboards.impl.CardDaoImpl;
+
 /**
  *
  * @author Dhananjay
@@ -36,26 +44,12 @@ public class Board extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "To-Do Task", "Doing Task", "Done Task"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
+
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
@@ -146,6 +140,42 @@ public class Board extends javax.swing.JFrame {
         Add_Task a1 = new Add_Task();
         a1.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        System.out.print("IN event");
+        DefaultTableModel dtm = new DefaultTableModel(0, 0);
+
+        BoardColumnDaoImpl bcdi = new BoardColumnDaoImpl();
+        ArrayList<BoardColumn> bCols = bcdi.getBoardColumns();
+        
+       // add header of the table
+       String header[] = new String[bCols.size()];
+       for(int i = 0; i < bCols.size(); i++){
+           header[i] = bCols.get(i).getColName();
+       }
+
+       // add header in table model     
+        dtm.setColumnIdentifiers(header);
+        //set model into the table object
+        jTable1.setModel(dtm);
+
+        CardDaoImpl cardDaoImpl = new CardDaoImpl();
+        ArrayList<Card> cards = cardDaoImpl.getCards();
+       // add row dynamically into the table      
+       for (int count = 1; count <= cards.size(); count++) {
+            Object[] objects = new Object[bCols.size()];
+            for (int i = 0; i < bCols.size(); i++) {
+                if (i == cards.get(count-1).getColId()) {
+                    objects[i-1] = cards.get(count-1).getCardId()+ " - " + cards.get(count-1).getCardTitle();
+                    continue;
+                }
+                objects[i] = "";
+            }
+            dtm.addRow(objects);
+        }
+       
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

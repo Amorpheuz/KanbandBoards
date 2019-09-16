@@ -171,7 +171,7 @@ public class Registration_Form extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-          Main_Form m1 =new Main_Form();
+        Main_Form m1 =new Main_Form();
         m1.setVisible(true);
     }//GEN-LAST:event_jButton2MouseClicked
 

@@ -61,7 +61,7 @@ public class BoardColumnDaoImpl implements BoardColumnDao{
                 ResultSet crds = preparedStatementSub.executeQuery();
                 ArrayList<Card> cards = new ArrayList<>();
                 while(crds.next()){
-                    cards.add(new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getObject(4, LocalDateTime.class)));
+                    cards.add(new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getDate(6).toLocalDate().atStartOfDay()));
                 }
                 boardCols.add(new BoardColumn(bcols.getInt(1),bcols.getString(2), bcols.getString(3),cards));
             }
@@ -162,4 +162,8 @@ public class BoardColumnDaoImpl implements BoardColumnDao{
         return false;
     }
     
+    public int getColumnCount(){
+        ArrayList<BoardColumn> bCols = getBoardColumns();
+        return bCols.size();
+    }
 }
