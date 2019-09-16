@@ -56,7 +56,7 @@ public class CardTypeDaoImpl implements CardTypeDao {
             ArrayList<CardType> cTypes = new ArrayList<>();
             while (cTyps.next()){
                 String subQuery = "Select * from cards where ctype_id = ?";
-                PreparedStatement preparedStatementSub = connection.prepareStatement(query);
+                PreparedStatement preparedStatementSub = connection.prepareStatement(subQuery);
                 preparedStatementSub.setInt(1,cTyps.getInt(1));
                 ResultSet crds = preparedStatementSub.executeQuery();
                 ArrayList<Card> cards = new ArrayList<>();
@@ -91,7 +91,7 @@ public class CardTypeDaoImpl implements CardTypeDao {
             ResultSet cTyps = preparedStatement.executeQuery();
             if (cTyps.next()){
                 String subQuery = "Select * from cards where ctype_id = ?";
-                PreparedStatement preparedStatementSub = connection.prepareStatement(query);
+                PreparedStatement preparedStatementSub = connection.prepareStatement(subQuery);
                 preparedStatementSub.setInt(1,cTyps.getInt(1));
                 ResultSet crds = preparedStatementSub.executeQuery();
                 ArrayList<Card> cards = new ArrayList<>();

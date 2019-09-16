@@ -56,7 +56,7 @@ public class BoardColumnDaoImpl implements BoardColumnDao{
             ArrayList<BoardColumn> boardCols = new ArrayList<>();
             while (bcols.next()){
                 String subQuery = "Select * from cards where col_id = ?";
-                PreparedStatement preparedStatementSub = connection.prepareStatement(query);
+                PreparedStatement preparedStatementSub = connection.prepareStatement(subQuery);
                 preparedStatementSub.setInt(1,bcols.getInt(1));
                 ResultSet crds = preparedStatementSub.executeQuery();
                 ArrayList<Card> cards = new ArrayList<>();
@@ -91,7 +91,7 @@ public class BoardColumnDaoImpl implements BoardColumnDao{
             ResultSet bcols = preparedStatement.executeQuery();
             if (bcols.next()){
                 String subQuery = "Select * from cards where col_id = ?";
-                PreparedStatement preparedStatementSub = connection.prepareStatement(query);
+                PreparedStatement preparedStatementSub = connection.prepareStatement(subQuery);
                 preparedStatementSub.setInt(1,bcols.getInt(1));
                 ResultSet crds = preparedStatementSub.executeQuery();
                 ArrayList<Card> cards = new ArrayList<>();

@@ -77,7 +77,7 @@ public class UserDaoImpl implements UserDao {
             ArrayList<User> users = new ArrayList<>();
             while (usrs.next()){
                 String subQuery = "Select * from cards where user_id = ?";
-                PreparedStatement preparedStatementSub = connection.prepareStatement(query);
+                PreparedStatement preparedStatementSub = connection.prepareStatement(subQuery);
                 preparedStatementSub.setInt(1,usrs.getInt(1));
                 ResultSet crds = preparedStatementSub.executeQuery();
                 ArrayList<Card> cards = new ArrayList<>();
@@ -112,7 +112,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet usrs = preparedStatement.executeQuery();
             if (usrs.next()){
                 String subQuery = "Select * from cards where user_id = ?";
-                PreparedStatement preparedStatementSub = connection.prepareStatement(query);
+                PreparedStatement preparedStatementSub = connection.prepareStatement(subQuery);
                 preparedStatementSub.setInt(1,usrs.getInt(1));
                 ResultSet crds = preparedStatementSub.executeQuery();
                 ArrayList<Card> cards = new ArrayList<>();
