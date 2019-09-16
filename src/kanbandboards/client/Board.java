@@ -60,6 +60,11 @@ public class Board extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jButton2.setText("Edit or Update the Task");
@@ -127,12 +132,14 @@ public class Board extends javax.swing.JFrame {
         // TODO add your handling code here:
         Edit_Form e1 = new Edit_Form();
         e1.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
           Main_Form m1 =new Main_Form();
-        m1.setVisible(true);
+          m1.setVisible(true);
+          this.dispose();
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -165,17 +172,26 @@ public class Board extends javax.swing.JFrame {
        // add row dynamically into the table      
        for (int count = 1; count <= cards.size(); count++) {
             Object[] objects = new Object[bCols.size()];
-            for (int i = 0; i < bCols.size(); i++) {
+            for (int i = 1; i <= bCols.size(); i++) {
                 if (i == cards.get(count-1).getColId()) {
-                    objects[i-1] = cards.get(count-1).getCardId()+ " - " + cards.get(count-1).getCardTitle();
+                    objects[i-1] = cards.get(count-1).getCardId()+ " - " + cards.get(count-1).getCardTitle() + " - " + cards.get(count-1).getCardType().getCardTypeName();
+                    if (cards.get(count-1).getUserId() != 0) {
+                        objects[i-1] += " - " + cards.get(count-1).getUser().getUserName();
+                    }
                     continue;
                 }
-                objects[i] = "";
+                objects[i-1] = "";
             }
             dtm.addRow(objects);
         }
-       
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Add_Task at = new Add_Task();
+        at.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
