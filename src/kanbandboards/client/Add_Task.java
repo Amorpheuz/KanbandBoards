@@ -5,13 +5,17 @@
  */
 package kanbandboards.client;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import kanbandboards.dao.CardDao;
 import kanbandboards.entity.BoardColumn;
 import kanbandboards.entity.Card;
+import kanbandboards.entity.CardType;
 import kanbandboards.impl.BoardColumnDaoImpl;
 import kanbandboards.impl.CardDaoImpl;
+import kanbandboards.impl.CardTypeDaoImpl;
 
 /**
  *
@@ -19,6 +23,7 @@ import kanbandboards.impl.CardDaoImpl;
  */
 public class Add_Task extends javax.swing.JFrame {
 
+    int firstCol;
     /**
      * Creates new form Add_Task
      */
@@ -143,26 +148,32 @@ public class Add_Task extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-          Main_Form m1 =new Main_Form();
+        Main_Form m1 =new Main_Form();
         m1.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        DefaultComboBoxModel cb =new DefaultComboBoxModel();
-        BoardColumnDaoImpl bcdi = new BoardColumnDaoImpl();
-        BoardColumn bc = new BoardColumn();
-        jComboBox1.setModel(cb);
-        jComboBox1.addItem("To-do");
-        jComboBox1.addItem("Doing");
-        jComboBox1.addItem("Completed");
+        ArrayList<CardType> cTypes = new CardTypeDaoImpl().getCardTypes();
+        ArrayList<String> cTyps = new ArrayList<>();
+        cTypes.forEach((b) -> {
+            cTyps.add(b.getCardTypeId()+" :  "+b.getCardTypeName());
+        });
+        jComboBox1.setModel(new DefaultComboBoxModel(cTyps.toArray(new String[cTyps.size()])));
+        ArrayList<BoardColumn> bc = new BoardColumnDaoImpl().getBoardColumns();
+        firstCol = bc.get(0).getColId();
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-         CardDaoImpl carddaoimpl = new CardDaoImpl();
-         String name = jTextField1.getText();
-         String type = jComboBox1.getSelectedItem().toString();  
+        CardDaoImpl cdi = new CardDaoImpl();
+        String name = jTextField1.getText();
+        int ctid = Integer.parseInt(jComboBox1.getSelectedItem().toString().split(" :  ")[0]); 
+        Card updatedCard = new Card(0,-1,firstCol,ctid,name,LocalDateTime.now());
+        if (cdi.addCard(updatedCard)) {
+            JOptionPane.showMessageDialog(this, "Record Added.");
+        }
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
