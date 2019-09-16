@@ -30,14 +30,13 @@ public class CardDaoImpl implements CardDao {
     @Override
     public boolean addCard(Card card) {
         Connection conn = DbConnection.getConnection();
-        String query = "insert into cards(user_id, col_id, ctype_id, card_title, card_created) values(?,?,?,?,?)";
+        String query = "insert into cards(col_id, ctype_id, card_title, card_created) values(?,?,?,?)";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
-            preparedStatement.setInt(1, card.getUserId());
-            preparedStatement.setInt(2, card.getColId());
-            preparedStatement.setInt(3, card.getcTypeId());
-            preparedStatement.setString(4, card.getCardTitle());
-            preparedStatement.setDate(5, Date.valueOf(card.getCardCreated().toLocalDate()));
+            preparedStatement.setInt(1, card.getColId());
+            preparedStatement.setInt(2, card.getcTypeId());
+            preparedStatement.setString(3, card.getCardTitle());
+            preparedStatement.setDate(4, Date.valueOf(card.getCardCreated().toLocalDate()));
             int rec = preparedStatement.executeUpdate();
             if (rec == 1){
                 return true;
@@ -118,17 +117,26 @@ public class CardDaoImpl implements CardDao {
                 PreparedStatement preparedStatementSub1 = connection.prepareStatement(subQuery1);
                 preparedStatementSub1.setInt(1,crds.getInt(2));
                 ResultSet usr = preparedStatementSub1.executeQuery();
-                User user = new User(usr.getInt(1),usr.getString(2),UserTypes.values()[usr.getInt(3)],usr.getString(4));
+                User user = null;
+                if (usr.next()) {
+                    user = new User(usr.getInt(1),usr.getString(2),UserTypes.values()[usr.getInt(3)],usr.getString(4));
+                }
                 String subQuery2 = "Select * from board_cols where col_id = ?";
                 PreparedStatement preparedStatementSub2 = connection.prepareStatement(subQuery2);
                 preparedStatementSub2.setInt(1,crds.getInt(3));
                 ResultSet bCol = preparedStatementSub2.executeQuery();
-                BoardColumn bColumn = new BoardColumn(bCol.getInt(1),bCol.getString(2),bCol.getString(3));
+                BoardColumn bColumn = null;
+                if (bCol.next()) {
+                    bColumn = new BoardColumn(bCol.getInt(1),bCol.getString(2),bCol.getString(3));
+                }
                 String subQuery3 = "Select * from card_types where ctype_id = ?";
                 PreparedStatement preparedStatementSub3 = connection.prepareStatement(subQuery3);
                 preparedStatementSub3.setInt(1,crds.getInt(4));
                 ResultSet cTyp = preparedStatementSub3.executeQuery();
-                CardType cType = new CardType(cTyp.getInt(1),cTyp.getString(2),cTyp.getString(3));
+                CardType cType = null;
+                if (cTyp.next()) {
+                    cType = new CardType(cTyp.getInt(1),cTyp.getString(2),cTyp.getString(3));
+                }
                 Card card = new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getObject(4, LocalDateTime.class),cType,user,bColumn);
                 return card;
             }
