@@ -16,6 +16,7 @@ public interface UserDao {
     public boolean addUser(User u);
     public ArrayList<User> getUsers();
     public User getUser(int userId);
+    public User getUser(String userName);
     public boolean updateUser(User u);
     public boolean delUser(int userId);
 }

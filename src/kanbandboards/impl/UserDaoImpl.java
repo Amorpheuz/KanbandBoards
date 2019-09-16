@@ -206,5 +206,27 @@ public class UserDaoImpl implements UserDao {
         }
         return false;
     }
-    
+    public User getUser(String userName){
+        Connection connection = DbConnection.getConnection();
+        try {
+            String query = "Select * from users where user_name = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,userName);
+            ResultSet usrs = preparedStatement.executeQuery();
+            if (usrs.next()){
+                User user = new User(usrs.getInt(1),usrs.getString(2),UserTypes.values()[usrs.getInt(3)],usrs.getString(4));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 }

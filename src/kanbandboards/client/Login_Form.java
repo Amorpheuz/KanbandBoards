@@ -5,6 +5,12 @@
  */
 package kanbandboards.client;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import javax.swing.JOptionPane;
+import kanbandboards.entity.User;
+import kanbandboards.impl.UserDaoImpl;
+
 /**
  *
  * @author Dhananjay
@@ -97,9 +103,9 @@ public class Login_Form extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(55, 55, 55)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -120,7 +126,7 @@ public class Login_Form extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -129,12 +135,44 @@ public class Login_Form extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String uname = jTextField1.getText();
+        String password = "";
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(new String(jPasswordField1.getPassword()).getBytes());
+            byte[] bytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            password = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        UserDaoImpl udao = new UserDaoImpl();
+        User fetchdUser = udao.getUser(uname);
+        if (fetchdUser != null) {
+            if (fetchdUser.getUserPass() == null ? password == null : fetchdUser.getUserPass().equals(password)) {
+                JOptionPane.showMessageDialog(this, "Logged in.");
+                Main_Form m1 =new Main_Form();
+                m1.setVisible(true);
+                this.dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "User Not Found / Incorrect details.");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "User Not Found / Incorrect details.");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-          Main_Form m1 =new Main_Form();
-        m1.setVisible(true);
+          System.exit(0);
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**
