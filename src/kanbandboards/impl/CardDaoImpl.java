@@ -137,7 +137,7 @@ public class CardDaoImpl implements CardDao {
                 if (cTyp.next()) {
                     cType = new CardType(cTyp.getInt(1),cTyp.getString(2),cTyp.getString(3));
                 }
-                Card card = new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getObject(4, LocalDateTime.class),cType,user,bColumn);
+                Card card = new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getDate(6).toLocalDate().atStartOfDay(),cType,user,bColumn);
                 return card;
             }
         } catch (SQLException e) {
@@ -159,7 +159,12 @@ public class CardDaoImpl implements CardDao {
         String query = "update cards set user_id = ?, col_id = ?, ctype_id = ?, card_title = ?, card_created = ? where card_id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, card.getUserId());
+            if (card.getUserId() == -1) {
+                preparedStatement.setNull(1, java.sql.Types.INTEGER);
+            }
+            else{
+                preparedStatement.setInt(1, card.getUserId());                
+            }
             preparedStatement.setInt(2, card.getColId());
             preparedStatement.setInt(3, card.getcTypeId());
             preparedStatement.setString(4, card.getCardTitle());
