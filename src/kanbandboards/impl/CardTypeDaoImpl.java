@@ -61,7 +61,7 @@ public class CardTypeDaoImpl implements CardTypeDao {
                 ResultSet crds = preparedStatementSub.executeQuery();
                 ArrayList<Card> cards = new ArrayList<>();
                 while(crds.next()){
-                    cards.add(new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getObject(4, LocalDateTime.class)));
+                    cards.add(new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getDate(6).toLocalDate().atStartOfDay()));
                 }
                 cTypes.add(new CardType(cTyps.getInt(1),cTyps.getString(2), cTyps.getString(3),cards));
             }
@@ -96,7 +96,7 @@ public class CardTypeDaoImpl implements CardTypeDao {
                 ResultSet crds = preparedStatementSub.executeQuery();
                 ArrayList<Card> cards = new ArrayList<>();
                 while(crds.next()){
-                    cards.add(new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getObject(4, LocalDateTime.class)));
+                    cards.add(new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getDate(6).toLocalDate().atStartOfDay()));
                 }
                 CardType cType = new CardType(cTyps.getInt(1),cTyps.getString(2), cTyps.getString(3),cards);
                 return cType;

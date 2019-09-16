@@ -82,7 +82,7 @@ public class UserDaoImpl implements UserDao {
                 ResultSet crds = preparedStatementSub.executeQuery();
                 ArrayList<Card> cards = new ArrayList<>();
                 while(crds.next()){
-                    cards.add(new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getObject(4, LocalDateTime.class)));
+                    cards.add(new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getDate(6).toLocalDate().atStartOfDay()));
                 }
                 users.add(new User(usrs.getInt(1),usrs.getString(2),UserTypes.values()[usrs.getInt(3)],usrs.getString(4),cards));
             }
@@ -117,7 +117,7 @@ public class UserDaoImpl implements UserDao {
                 ResultSet crds = preparedStatementSub.executeQuery();
                 ArrayList<Card> cards = new ArrayList<>();
                 while(crds.next()){
-                    cards.add(new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getObject(4, LocalDateTime.class)));
+                    cards.add(new Card(crds.getInt(1),crds.getInt(2),crds.getInt(3),crds.getInt(4),crds.getString(5),crds.getDate(6).toLocalDate().atStartOfDay()));
                 }
                 User user = new User(usrs.getInt(1),usrs.getString(2),UserTypes.values()[usrs.getInt(3)],usrs.getString(4),cards);
                 return user;
