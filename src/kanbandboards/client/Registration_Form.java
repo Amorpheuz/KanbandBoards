@@ -176,23 +176,23 @@ public class Registration_Form extends javax.swing.JFrame {
         UserDaoImpl udi= new UserDaoImpl();
         s = jComboBox1.getSelectedItem().toString();
         email = jTextField2.getText();
-        pass1 = Arrays.toString(jPasswordField2.getPassword());
-        pass2= Arrays.toString(jPasswordField3.getPassword());
+        pass1 = new String(jPasswordField2.getPassword());
+        pass2= new String(jPasswordField3.getPassword());
         if(pass1.equals(pass2))
         {
             if(s.equals(UserTypes.ADMIN.toString()))
             {
-            User u1= new User(0,email,UserTypes.ADMIN,pass1);
-            udi.addUser(u1);
+                User u1= new User(0,email,UserTypes.ADMIN,pass1);
+                udi.addUser(u1);
             }
             else
             {
                 User u1= new User(0,email,UserTypes.NORMAL,pass1);
                 udi.addUser(u1);
             }
-        Login_Form f1 = new Login_Form();
-        f1.setVisible(true);
-        this.dispose();
+            Login_Form f1 = new Login_Form();
+            f1.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_jButton1MouseClicked
      
@@ -200,6 +200,7 @@ public class Registration_Form extends javax.swing.JFrame {
         // TODO add your handling code here:
         Main_Form m1 =new Main_Form();
         m1.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
